@@ -1,11 +1,214 @@
-function preload(){
-  // put preload code here
+var fish = [];
+var badfish = [];
+var bubbles = [];
+
+var k = 0; //k is the variable that defines the mouseClicked function
+
+function preload() {
+  bluu = loadFont('assets/BluuNext-Bolditalic.otf');
 }
 
 function setup() {
-  // put setup code here
+  createCanvas(windowWidth, windowHeight);
+
+  //setup bubbles
+  for (t = 0; t < 100; t++) {
+    bubbles[t] = new Bubble();
+  }
+
+  //setup orange fish
+  for (i = 0; i < 30; i++) {
+    fish[i] = new Fish();
+  }
+
+  //setup green fish
+  for (j = 0; j < 40; j++) {
+    badfish[j] = new Badfish();
+  }
+}
+
+//define the change when the mouse is clicked
+function mouseClicked(){
+  if(k==1){
+    k=0;
+  }else if(k==0){
+    k=1;
+  }
+  console.log(k);
 }
 
 function draw() {
-  // put drawing code here
+
+  //define what happens if the mouse is not clicked
+  if (k==0){
+    background("#33a0ff");
+
+    //define the behaviour of the object Fish
+    for (var i = 0; i < fish.length; i++) {
+      fish[i].move();
+      fish[i].display();}
+
+    //Click to go in bad waters txt
+    push();
+    textAlign(CENTER, CENTER);
+    noStroke();
+    fill("#001a1a");
+    textSize(25);
+    textFont(bluu);
+    text('Click to go in bad waters', windowWidth / 2, windowHeight - 30);
+    pop();
+
+  } //define what happens if the mouse is clicked
+    else if (k==1) {
+      background("#003333");
+
+    //define the behaviour of the object Badfish
+      for (var j = 0; j < fish.length; j++) {
+        badfish[j].move();
+        badfish[j].display();}
+
+    //click to go back txt
+      push();
+      textAlign(CENTER, CENTER);
+      noStroke();
+      fill("#e6ffff");
+      textSize(25);
+      textFont(bluu);
+      text('F**k, go back!!!', windowWidth / 2, windowHeight - 30);
+      pop();
+
+    }
+
+    //draw bubbles
+
+    for (var t = 0; t < bubbles.length; t++) {
+      bubbles[t].move();
+      bubbles[t].display();
+    }
+
+}
+
+//orange Fish
+function Fish() {
+  var a = 50;
+  var b = 30;
+  var c = 50;
+  var d = 30;
+
+  //define parameters of the object Fish
+  this.x = random(-a, windowWidth);
+  this.y = random(a, windowHeight - a);
+  this.diameter1 = a;
+  this.diameter2 = b;
+  this.speed = 2;
+
+  var xIncrease = 1;
+  var yIncrease = 0;
+
+  //define how Fish moves
+  this.move = function() {
+    this.x += xIncrease * this.speed + random(-1, 1);
+    this.y += yIncrease * this.speed + random(-1, 1);
+
+    //orizontal bouncing
+    if (this.x > windowWidth || this.x < 0) {
+      xIncrease = -xIncrease;
+      c = -c;
+    } else {
+      c = c;
+    }
+  }
+
+  //define the appearence of Fish
+  this.display = function() {
+    noStroke();
+    fill("#ff6600");
+    ellipse(this.x, this.y, this.diameter1, this.diameter2); //body
+    triangle(this.x - c / 2, this.y, this.x - 2 * c / 3, this.y - d / 3, this.x - 2 * c / 3, this.y + d / 3); //tail
+    fill(255);
+    ellipse(this.x + c / 4, this.y - d / 10, c / 4); //eyeball white
+    fill(0);
+    ellipse(this.x + c / 4, this.y - d / 10, c / 7); //eyeball black
+  }
+
+}
+
+//green fish
+function Badfish() {
+  var e = 50;
+  var f = 30;
+  var g = 50;
+  var h = 30;
+
+  //define parameters of bad fish
+  this.x = random(- e, windowWidth);
+  this.y = random(e, windowHeight - e);
+  this.diameter1 = e;
+  this.diameter2 = f;
+  this.speed = 3;
+
+  var xIncrease = 2;
+  var yIncrease = 0;
+
+  //define how bad fish moves
+  this.move = function() {
+    this.x += xIncrease * this.speed + random(-1, 1);
+    this.y += yIncrease * this.speed + random(-1, 1);
+
+    //orizontal bouncing
+    if (this.x > windowWidth || this.x < 0) {
+      xIncrease = -xIncrease;
+      g = - g;
+    } else {
+      g = g;
+    }
+  }
+
+  //define bad fish appearence
+  this.display = function() {
+    push();
+    noStroke();
+    fill("#177f70");
+    ellipse(this.x, this.y, this.diameter1, this.diameter2); //body
+    triangle(this.x - g / 2, this.y, this.x - 2 * g / 3, this.y - h / 3, this.x - 2 * g / 3, this.y + h / 3); //tail
+    fill(255);
+    ellipse(this.x + g / 4, this.y - h / 10, g / 4); //eyeball white
+    fill(0);
+    ellipse(this.x + g / 4, this.y - h / 10, e / 7); //eyeball black
+    pop();
+    strokeWeight(3);
+    stroke(0);
+    line(this.x + g/4, this.y - h + 21, this.x + g/4 + 5, this.y - h + 23); //eyebrow1
+    line(this.x + g/4 - 5, this.y - h + 23, this.x + g/4, this.y - h + 21); //eyebrow2
+  }
+
+}
+
+//define object Bubble
+function Bubble() {
+  this.x = random(0, windowWidth);
+  this.y = random(0, windowHeight);
+  this.size = 20 * random();
+  this.speed = 2;
+
+  var xIncrease = 0.2;
+  var yIncrease = -2;
+
+//define bubbles movement
+  this.move = function() {
+    this.x += xIncrease * random(-4, 4);
+    this.y += yIncrease * this.speed + random(-1, 1);
+
+    if (this.y < 0) {
+      this.y = windowHeight;
+    }
+  }
+
+//define bubbles appearence
+  this.display = function() {
+    noFill();
+    stroke(255);
+    strokeWeight(0.5)
+    ellipse(this.x, this.y, this.size)
+  }
 }
