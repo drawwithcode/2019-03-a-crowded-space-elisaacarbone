@@ -48,10 +48,10 @@ function draw() {
       fish[i].display();}
 
     push();
-    stroke(0);
+    stroke("#331a00");
     strokeWeight(1.5);
     line(mouseX, 0, mouseX, mouseY);
-    fill(0)
+    fill("#331a00")
     triangle(mouseX + 15, mouseY, mouseX + 25, mouseY, mouseX + 20, mouseY - 10);
     noFill();
     arc(mouseX + 10, mouseY, 20, 20, 0, PI);
@@ -61,7 +61,7 @@ function draw() {
     push();
     textAlign(CENTER, CENTER);
     noStroke();
-    fill("#001a1a");
+    fill("#331a00");
     textSize(25);
     textFont(bluu);
     text('Click on the fish to catch them', windowWidth / 2, windowHeight - 60);
@@ -124,7 +124,7 @@ function Fish() {
   var d = 30;
   this.colorbody = color("#ff6600");
   this.coloreye = color(255);
-  this.coloriris = color(0);
+  this.coloriris = color("#331a00");
 
   //define parameters of the object Fish
   this.x = random(-a, windowWidth);
@@ -165,7 +165,7 @@ function Fish() {
   //define what happens when you click on a single object
   this.clicked = function() {
     var d = dist(mouseX, mouseY, this.x, this.y)
-    if (d < b/2) {
+    if (d < a/2) {
       this.colorbody = color(0, 0);
       this.coloreye = color(255,0);
       this.coloriris = color(0,0);
