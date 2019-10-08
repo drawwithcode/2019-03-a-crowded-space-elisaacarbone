@@ -1,5 +1,7 @@
 var fish = [];
+var fishedFishies = 0; //n. of orange fish catched
 var badfish = [];
+var killedFishies = 0; //n. of bad fish killed
 var bubbles = [];
 
 var k = 0; //k is the variable that defines the keyPressed function
@@ -17,12 +19,12 @@ function setup() {
   }
 
   //setup orange fish
-  for (i = 0; i < 70; i++) {
+  for (i = 0; i < 20; i++) {
     fish[i] = new Fish();
   }
 
   //setup green fish
-  for (j = 0; j < 80; j++) {
+  for (j = 0; j < 20; j++) {
     badfish[j] = new Badfish();
   }
 }
@@ -68,6 +70,19 @@ function draw() {
     text('or press ENTER to go in bad waters', windowWidth / 2, windowHeight - 30);
     pop();
 
+    if(fishedFishies == 20){
+      background("#ff9999");
+      push();
+      textAlign(CENTER, CENTER);
+      noStroke();
+      fill("#000066");
+      textSize(48);
+      textFont(bluu);
+      text('KING', windowWidth / 2, windowHeight/2 - 25);
+      text('FISHER', windowWidth / 2, windowHeight/2 + 25);
+      pop();
+    }
+
   } //define what happens if the ENTER key is pressed
     else if (k==1) {
       background("#003333");
@@ -97,6 +112,19 @@ function draw() {
       text('Hurry up!! Click on the fish to kill them', windowWidth / 2, windowHeight - 60);
       text('or press the UP arrow to run away', windowWidth / 2, windowHeight - 30);
       pop();
+
+      if(killedFishies == 20){
+        background("#cc66ff");
+        push();
+        textAlign(CENTER, CENTER);
+        noStroke();
+        fill("#ffffcc");
+        textSize(48);
+        textFont(bluu);
+        text('KING', windowWidth / 2, windowHeight/2 - 25);
+        text('KILLER', windowWidth / 2, windowHeight/2 + 25);
+        pop();
+      }
 
     }
 
@@ -169,6 +197,7 @@ function Fish() {
       this.colorbody = color(0, 0);
       this.coloreye = color(255,0);
       this.coloriris = color(0,0);
+      fishedFishies++;
     }
   }
 
@@ -232,6 +261,7 @@ function Badfish() {
       this.colorbody = color(0, 0);
       this.coloreye = color(255,0);
       this.coloriris = color(0,0);
+      killedFishies++;
     }
   }
 
