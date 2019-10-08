@@ -17,12 +17,12 @@ function setup() {
   }
 
   //setup orange fish
-  for (i = 0; i < 30; i++) {
+  for (i = 0; i < 70; i++) {
     fish[i] = new Fish();
   }
 
   //setup green fish
-  for (j = 0; j < 40; j++) {
+  for (j = 0; j < 80; j++) {
     badfish[j] = new Badfish();
   }
 }
