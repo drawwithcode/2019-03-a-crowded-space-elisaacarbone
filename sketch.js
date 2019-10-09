@@ -30,24 +30,25 @@ function setup() {
 }
 
 //define the change when keys are clicked
-function keyPressed(){
-  if(k==1 && keyCode === UP_ARROW){
-    k=0;
-  }else if(k==0 && keyCode === ENTER){
-    k=1;
+function keyPressed() {
+  if (k == 1 && keyCode === UP_ARROW) {
+    k = 0;
+  } else if (k == 0 && keyCode === ENTER) {
+    k = 1;
   }
   console.log(k);
 }
 
 function draw() {
   //define what happens if the UP arrow is clicked or the initial condition
-  if (k==0){
+  if (k == 0) {
     background("#66d9ff");
 
     //define the behaviour of the object Fish
     for (var i = 0; i < fish.length; i++) {
       fish[i].move();
-      fish[i].display();}
+      fish[i].display();
+    }
 
     push();
     stroke("#331a00");
@@ -70,7 +71,7 @@ function draw() {
     text('or press ENTER to go in bad waters', windowWidth / 2, windowHeight - 30);
     pop();
 
-    if(fishedFishies == 20){
+    if (fishedFishies == 20) {
       background("#ff9999");
       push();
       textAlign(CENTER, CENTER);
@@ -78,70 +79,73 @@ function draw() {
       fill("#000066");
       textSize(48);
       textFont(bluu);
-      text('KING', windowWidth / 2, windowHeight/2 - 25);
-      text('FISHER', windowWidth / 2, windowHeight/2 + 25);
+      text('KING', windowWidth / 2, windowHeight / 2 - 25);
+      text('FISHER', windowWidth / 2, windowHeight / 2 + 25);
       pop();
     }
 
   } //define what happens if the ENTER key is pressed
-    else if (k==1) {
-      background("#003333");
+  else if (k == 1) {
+    background("#003333");
 
     //define the behaviour of the object Badfish
-      for (var j = 0; j < fish.length; j++) {
-        badfish[j].move();
-        badfish[j].display();}
+    for (var j = 0; j < fish.length; j++) {
+      badfish[j].move();
+      badfish[j].display();
+    }
 
-      push();
-      stroke(255);
-      strokeWeight(1.5);
-      line(mouseX, 0, mouseX, mouseY);
-      fill(255)
-      triangle(mouseX + 15, mouseY, mouseX + 25, mouseY, mouseX + 20, mouseY - 10);
-      noFill();
-      arc(mouseX + 10, mouseY, 20, 20, 0, PI);
-      pop();
+    push();
+    stroke(255);
+    strokeWeight(1.5);
+    line(mouseX, 0, mouseX, mouseY);
+    fill(255)
+    triangle(mouseX + 15, mouseY, mouseX + 25, mouseY, mouseX + 20, mouseY - 10);
+    noFill();
+    arc(mouseX + 10, mouseY, 20, 20, 0, PI);
+    pop();
 
     //press UP arrow to go back txt
+    push();
+    textAlign(CENTER, CENTER);
+    noStroke();
+    fill("#e6ffff");
+    textSize(25);
+    textFont(bluu);
+    text('Hurry up!! Click on the fish to kill them', windowWidth / 2, windowHeight - 60);
+    text('or press the UP arrow to run away', windowWidth / 2, windowHeight - 30);
+    pop();
+
+    if (killedFishies == 20) {
+      background("#cc66ff");
       push();
       textAlign(CENTER, CENTER);
       noStroke();
-      fill("#e6ffff");
-      textSize(25);
+      fill("#ffffcc");
+      textSize(48);
       textFont(bluu);
-      text('Hurry up!! Click on the fish to kill them', windowWidth / 2, windowHeight - 60);
-      text('or press the UP arrow to run away', windowWidth / 2, windowHeight - 30);
+      text('KING', windowWidth / 2, windowHeight / 2 - 25);
+      text('KILLER', windowWidth / 2, windowHeight / 2 + 25);
       pop();
-
-      if(killedFishies == 20){
-        background("#cc66ff");
-        push();
-        textAlign(CENTER, CENTER);
-        noStroke();
-        fill("#ffffcc");
-        textSize(48);
-        textFont(bluu);
-        text('KING', windowWidth / 2, windowHeight/2 - 25);
-        text('KILLER', windowWidth / 2, windowHeight/2 + 25);
-        pop();
-      }
-
     }
 
-    //draw bubbles
+  }
 
-    for (var t = 0; t < bubbles.length; t++) {
-      bubbles[t].move();
-      bubbles[t].display();
-    }
+  //draw bubbles
+
+  for (var t = 0; t < bubbles.length; t++) {
+    bubbles[t].move();
+    bubbles[t].display();
+  }
 
 }
 
 function mousePressed() {
   for (var i = 0; i < fish.length; i++) {
-    fish[i].clicked();}
+    fish[i].clicked();
+  }
   for (var i = 0; i < badfish.length; i++) {
-    badfish[i].clicked();}
+    badfish[i].clicked();
+  }
 }
 
 //orange Fish
@@ -193,10 +197,10 @@ function Fish() {
   //define what happens when you click on a single object
   this.clicked = function() {
     var d = dist(mouseX, mouseY, this.x, this.y)
-    if (d < a/2) {
+    if (d < a / 2) {
       this.colorbody = color(0, 0);
-      this.coloreye = color(255,0);
-      this.coloriris = color(0,0);
+      this.coloreye = color(255, 0);
+      this.coloriris = color(0, 0);
       fishedFishies++;
     }
   }
@@ -211,7 +215,7 @@ function Badfish() {
   var h = 30;
 
   //define parameters of bad fish
-  this.x = random(- e, windowWidth);
+  this.x = random(-e, windowWidth);
   this.y = random(e, windowHeight - e);
   this.diameter1 = e;
   this.diameter2 = f;
@@ -231,7 +235,7 @@ function Badfish() {
     //orizontal bouncing
     if (this.x > windowWidth || this.x < 0) {
       xIncrease = -xIncrease;
-      g = - g;
+      g = -g;
     } else {
       g = g;
     }
@@ -251,16 +255,16 @@ function Badfish() {
     pop();
     strokeWeight(3);
     stroke(this.coloriris);
-    line(this.x + g/4, this.y - h + 21, this.x + g/4 + 5, this.y - h + 23); //eyebrow1
-    line(this.x + g/4 - 5, this.y - h + 23, this.x + g/4, this.y - h + 21); //eyebrow2
+    line(this.x + g / 4, this.y - h + 21, this.x + g / 4 + 5, this.y - h + 23); //eyebrow1
+    line(this.x + g / 4 - 5, this.y - h + 23, this.x + g / 4, this.y - h + 21); //eyebrow2
   }
 
   this.clicked = function() {
     var d = dist(mouseX, mouseY, this.x, this.y)
-    if (d < e/2) {
+    if (d < e / 2) {
       this.colorbody = color(0, 0);
-      this.coloreye = color(255,0);
-      this.coloriris = color(0,0);
+      this.coloreye = color(255, 0);
+      this.coloriris = color(0, 0);
       killedFishies++;
     }
   }
@@ -277,7 +281,7 @@ function Bubble() {
   var xIncrease = 0.2;
   var yIncrease = -2;
 
-//define bubbles movement
+  //define bubbles movement
   this.move = function() {
     this.x += xIncrease * random(-4, 4);
     this.y += yIncrease * this.speed + random(-1, 1);
@@ -287,7 +291,7 @@ function Bubble() {
     }
   }
 
-//define bubbles appearence
+  //define bubbles appearence
   this.display = function() {
     noFill();
     stroke(255);
